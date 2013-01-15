@@ -1,4 +1,4 @@
-### colos [![TravisCI](https://secure.travis-ci.org/artemeff/colos.png?branch=master)](http://travis-ci.org/artemeff/colos)
+### colos
 
 Convert ruby string to color.
 
