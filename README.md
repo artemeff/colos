@@ -1,4 +1,6 @@
-### colos
+# colos
+
+[![Dependency Status](https://gemnasium.com/artemeff/colos.png)](https://gemnasium.com/artemeff/colos)
 
 Convert ruby string to color.
 
