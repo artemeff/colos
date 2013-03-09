@@ -47,7 +47,7 @@ class Colos
 
     rgb.each do |b|
       b = b.to_s 16
-      b *= 2 unless b.size == 2
+      b = "0#{b}" unless b.size == 2
       hex += b
     end
 
