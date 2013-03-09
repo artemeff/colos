@@ -13,8 +13,29 @@ Convert ruby string to color.
 ```ruby
 require 'colos'
 
-Colos.color "word"  # => "395e9a"
-Colos.colors "word" # => ["b7d989", "395e9a", "14e8c0"]
+colos = Colos.new frequency: 1.2, randomizr: 12
+
+# get one of possible colors from string
+colos.color "word"        # => "395e9a"
+
+# get all possible colors
+colos.colors "word"       # => ["b7d989", "395e9a", "14e8c0"]
+
+# get one of possible colors from IPv4
+colos.ip "173.194.32.14"  # => "c2eead"
+
+# get all colors from IPv4
+colos.ips "173.194.32.14" # => ["adc220", ..., "ee20c2"]
+```
+
+### Options
+
+```ruby
+default_options = {
+  hash: CityHash, # doesn't work at now
+  frequency: 1.4, # frequency for strings
+  randomizr: 0    # number of item from possible ip colors
+}
 ```
 
 ### Copyright
