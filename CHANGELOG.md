@@ -1,3 +1,10 @@
+### 0.0.6
+
+* Add specs
+* Add :format option for future :)
+* Some DRY
+* Some fixes
+
 ### 0.0.3
 
 * Fix ip converts

@@ -8,7 +8,7 @@ class Colos
   # Initializer
   #
   # Example:
-  #   >> Colos.new frequency: 1.2, randomizr: 12
+  #   >> Colos.new frequency: 1.2, randomizr: 12, format: :hex
   #   => Colos instance
   #
   # Arguments:
@@ -17,7 +17,8 @@ class Colos
     default_options = {
       hash: CityHash,
       frequency: 1.4,
-      randomizr: 0
+      randomizr: 0,
+      format: :hex
     }
 
     # merge
@@ -27,6 +28,7 @@ class Colos
     raise "Frequency option should be from 1.2 to 1.6" unless (1.2..1.6).include? @options[:frequency]
     raise "Randomizr option should be from 0 to 23" unless (0..23).include? @options[:randomizr]
     raise "Hash class should have `new` method" unless @options[:hash].respond_to?('hash32')
+    raise "Format can be hex or rgb" unless [:hex, :rgb].include? @options[:format]
   end
 
   # Convert IPv4 to color
@@ -43,15 +45,9 @@ class Colos
 
     raise "Invalid IP" unless ip.size == 4
 
-    rgb = ip.permutation(3).to_a[@options[:randomizr]].map &:to_i
+    rgb = ip.permutation(3).to_a[@options[:randomizr]]
 
-    rgb.each do |b|
-      b = b.to_s 16
-      b = "0#{b}" unless b.size == 2
-      hex += b
-    end
-
-    hex
+    hex_from_int rgb
   end
 
   # Convert IPv4 to colors
@@ -69,13 +65,7 @@ class Colos
     raise "Invalid IP" unless ip.size == 4
 
     ip.permutation(3).to_a.each do |color|
-      hex = ""
-      color.each do |b|
-        b = b.to_i.to_s 16
-        b *= 2 unless b.size == 2
-        hex += b
-      end
-      hexs << hex
+      hexs << hex_from_int(color)
     end
 
     hexs
@@ -112,6 +102,20 @@ class Colos
     end
 
     colors
+  end
+
+private
+
+  def hex_from_int ints
+    hex = ""
+    
+    ints.map(&:to_i).each do |b|
+      b = b.to_s 16
+      b = "0#{b}" unless b.size == 2
+      hex += b
+    end
+
+    hex
   end
 
 end

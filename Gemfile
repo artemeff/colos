@@ -2,5 +2,9 @@ source "http://rubygems.org"
 
 gemspec
 
-gem "rake"
 gem "cityhash"
+
+group :development, :test do
+  gem "rake"
+  gem "rspec"
+end
