@@ -1,4 +1,4 @@
-require './lib/colos.rb'
+require 'spec_helper'
 
 describe Colos do
 
