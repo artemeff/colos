@@ -1,10 +1,8 @@
-source "http://rubygems.org"
-
-gemspec
-
-gem "cityhash"
+source 'https://rubygems.org'
 
 group :development, :test do
-  gem "rake"
-  gem "rspec"
+  gem 'rake'
+  gem 'rspec'
 end
+
+gemspec

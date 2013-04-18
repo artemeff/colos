@@ -3,7 +3,7 @@ require "cityhash"
 class Colos
   
   # Options store
-  attr_accessor :options
+  attr_reader :options
 
   # Initializer
   #
@@ -15,7 +15,6 @@ class Colos
   #   options: (Hash)
   def initialize options = {}
     default_options = {
-      hash: CityHash,
       frequency: 1.4,
       randomizr: 0,
       format: :hex
@@ -24,11 +23,14 @@ class Colos
     # merge
     @options = default_options.merge options
 
-    # errors
-    raise "Frequency option should be from 1.2 to 1.6" unless (1.2..1.6).include? @options[:frequency]
-    raise "Randomizr option should be from 0 to 23" unless (0..23).include? @options[:randomizr]
-    raise "Hash class should have `new` method" unless @options[:hash].respond_to?('hash32')
-    raise "Format can be hex or rgb" unless [:hex, :rgb].include? @options[:format]
+    check_options
+  end
+
+  # Options setter
+  def options= key, value
+    @options[key] = value
+
+    check_options
   end
 
   # Convert IPv4 to color
@@ -45,9 +47,13 @@ class Colos
 
     raise "Invalid IP" unless ip.size == 4
 
-    rgb = ip.permutation(3).to_a[@options[:randomizr]]
+    number = ip.permutation(3).to_a[@options[:randomizr]]
 
-    hex_from_int rgb
+    if @options[:format] == :hex
+      make_color number
+    else
+      to_rgb make_color number
+    end
   end
 
   # Convert IPv4 to colors
@@ -60,15 +66,21 @@ class Colos
   #   str: (String)
   def ips str
     ip = str.split '.'
-    hexs = []
+    colors = []
 
     raise "Invalid IP" unless ip.size == 4
 
-    ip.permutation(3).to_a.each do |color|
-      hexs << hex_from_int(color)
+    ip.permutation(3).to_a.each do |number|
+      colors << make_color(number)
     end
 
-    hexs
+    if @options[:format] == :hex
+      colors
+    else
+      colors.map do |hex|
+        to_rgb hex
+      end
+    end
   end
 
   # Convert string to color
@@ -81,7 +93,13 @@ class Colos
   #   str: (String)
   def color str
     hash = CityHash.hash32 str
-    (hash**(1.0 / @options[:frequency])).to_i.to_s 16
+    hex = (hash**(1.0 / @options[:frequency])).to_i.to_s 16
+
+    if @options[:format] == :hex
+      hex
+    else
+      to_rgb hex
+    end
   end
 
   # Convert string to colors
@@ -101,21 +119,37 @@ class Colos
       colors << q.to_s(16) if q.to_s(16).size == 6
     end
 
-    colors
+    if @options[:format] == :hex
+      colors
+    else
+      colors.map do |hex|
+        to_rgb hex
+      end
+    end
   end
 
 private
 
-  def hex_from_int ints
+  def check_options
+    raise "Frequency option should be from 1.2 to 1.6" unless (1.2..1.6).include? @options[:frequency]
+    raise "Randomizr option should be from 0 to 23" unless (0..23).include? @options[:randomizr]
+    raise "Format can be hex or rgb" unless [:hex, :rgb].include? @options[:format]
+  end
+
+  def make_color number
     hex = ""
     
-    ints.map(&:to_i).each do |b|
+    number.map(&:to_i).each do |b|
       b = b.to_s 16
       b = "0#{b}" unless b.size == 2
-      hex += b
+      hex << b
     end
 
     hex
+  end
+
+  def to_rgb hex
+    hex.match(/(..)(..)(..)/).to_a.map(&:hex)[1..-1]
   end
 
 end

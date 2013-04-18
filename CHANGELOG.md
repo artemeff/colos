@@ -1,3 +1,11 @@
+### 0.0.7
+
+* Add :rgb
+* Remove :hash option
+* Move dependencies to gemspec
+* Enhance options usage
+* Enhance specs
+
 ### 0.0.6
 
 * Add specs
