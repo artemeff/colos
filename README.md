@@ -42,7 +42,7 @@ color.ip "173.194.32.14"  # => [173, 194, 32]
 ```ruby
 default_options = {
   frequency: 1.4, # frequency for strings
-  randomizr: 0    # number of item from possible ip colors
+  randomizr: 0,   # number of item from possible ip colors
   format:    :hex # :hex or :rgb
 }
 ```
