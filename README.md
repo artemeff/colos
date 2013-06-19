@@ -15,36 +15,10 @@ Convert ruby string to color.
 ```ruby
 require 'colos'
 
-colos = Colos.new frequency: 1.4, randomizr: 5
-
-# get one of possible colors from string
-colos.color "word"        # => "395e9a"
-
-# get all possible colors
-colos.colors "word"       # => ["b7d989", "395e9a", "14e8c0"]
-
-# get one of possible colors from IPv4
-colos.ip "173.194.32.14"  # => "ad0e20"
-
-# get all colors from IPv4
-colos.ips "173.194.32.14" # => ["adc220", ..., "0e20c2"]
-
-# set rgb option
-colos.options[:format] = :rgb
-
-# and get it
-color.color "word"        # => [57, 94, 154]
-color.ip "173.194.32.14"  # => [173, 194, 32]
-```
-
-### Options
-
-```ruby
-default_options = {
-  frequency: 1.4, # frequency for strings
-  randomizr: 0,   # number of item from possible ip colors
-  format:    :hex # :hex or :rgb
-}
+Colos.color "test"      # => "924436"
+Colos.color "greenish"  # => "9bc63b"
+Colos.color "ruby"      # => "da9535"
+Colos.color "colos"     # => "642fa7"
 ```
 
 ### Copyright

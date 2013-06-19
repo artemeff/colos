@@ -11,6 +11,4 @@ Gem::Specification.new do |s|
   s.summary = %q{String to color}
   s.description = %q{Convert Ruby string to color}
   s.files = ["lib/colos.rb", "lib/colos/version.rb"]
-
-  s.add_dependency 'cityhash', '~> 0.7.0'
 end
