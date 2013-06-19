@@ -2,7 +2,6 @@
 
 [![Gem version](https://badge.fury.io/rb/colos.png)](https://rubygems.org/gems/colos)
 [![Build Status](https://secure.travis-ci.org/artemeff/colos.png)](https://travis-ci.org/artemeff/colos)
-[![Dependency Status](https://gemnasium.com/artemeff/colos.png)](https://gemnasium.com/artemeff/colos)
 
 Convert ruby string to color.
 
